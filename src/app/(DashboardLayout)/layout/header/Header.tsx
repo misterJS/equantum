@@ -78,7 +78,7 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
             onClick={handleLogout}
             href="/authentication/login"
             disableElevation
-            color="primary"
+            color="danger"
           >
             Logout
           </Button>

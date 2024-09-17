@@ -34,9 +34,7 @@ export default function RootLayout({ children }: Props) {
     const getAuth = localStorage.getItem("auth");
     if (getAuth) {
       setAuth(getAuth);
-      console.log(JSON.parse(getAuth));
     } else {
-      console.log("No auth token found, redirecting...");
       router.push("/authentication/login");
     }
   }, [router]);
