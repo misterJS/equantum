@@ -12,10 +12,10 @@ import {
   Button,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import Link from "next/link"; 
+import Link from "next/link";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { db } from "../../../../firebase"; 
-import { Delete } from "@mui/icons-material"; 
+import { db } from "../../../../firebase";
+import { Delete } from "@mui/icons-material";
 import { Timestamp } from "firebase/firestore";
 
 interface Blog {
@@ -56,8 +56,8 @@ const BlogList: React.FC = () => {
   };
 
   const formatDate = (timestamp: Timestamp) => {
-    const date = timestamp.toDate(); 
-    return date.toLocaleString(); 
+    const date = timestamp.toDate();
+    return date.toLocaleString();
   };
 
   useEffect(() => {
@@ -70,7 +70,19 @@ const BlogList: React.FC = () => {
         <CircularProgress />
       ) : (
         <>
-          {/* Tabel untuk menampilkan blog */}
+          <Typography variant="h4" sx={{ mb: 4 }}>
+            Blogs List
+          </Typography>
+          <Box sx={{ mt: 4 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              component={Link}
+              href="/blogs/add-blog"
+            >
+              Add New Blog
+            </Button>
+          </Box>
           <Table aria-label="blog table" sx={{ whiteSpace: "nowrap", mt: 2 }}>
             <TableHead>
               <TableRow>
@@ -126,16 +138,6 @@ const BlogList: React.FC = () => {
               ))}
             </TableBody>
           </Table>
-          <Box sx={{ mt: 4 }}>
-            <Button
-              variant="contained"
-              color="primary"
-              component={Link}
-              href="/blogs/add-blog"
-            >
-              Add New Blog
-            </Button>
-          </Box>
         </>
       )}
     </Box>

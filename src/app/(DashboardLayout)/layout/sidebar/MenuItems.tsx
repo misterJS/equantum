@@ -1,6 +1,7 @@
 import {
   IconAperture,
   IconCopy,
+  IconFile,
   IconLayoutDashboard,
   IconLogin,
   IconMoodHappy,
@@ -36,6 +37,12 @@ const Menuitems = [
     title: "Manage Blogs",
     icon: IconTypography,
     href: "/blogs",
+  },
+  {
+    id: uniqueId(),
+    title: "Manage Proyek",
+    icon: IconFile,
+    href: "/inquiries",
   },
   // {
   //   id: uniqueId(),

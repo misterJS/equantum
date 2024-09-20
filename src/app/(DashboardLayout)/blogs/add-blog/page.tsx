@@ -131,7 +131,7 @@ const AddBlog: React.FC = () => {
         theme="snow"
         value={newBlog.content}
         onChange={(content) => setNewBlog({ ...newBlog, content })}
-        style={{ height: "200px", marginBottom: "30px" }}
+        style={{ height: "200px", marginBottom: "50px" }}
       />
 
       {/* Multiple Tags input */}
