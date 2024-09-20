@@ -9,12 +9,13 @@ import {
   Autocomplete,
   MenuItem,
 } from "@mui/material";
-import { useRouter } from "next/navigation"; // Untuk navigasi setelah submit
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation"; 
 import { collection, addDoc } from "firebase/firestore";
 import { db, storage } from "../../../../../firebase"; // Import Firebase Storage
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Firebase Storage untuk upload gambar
 import { Timestamp } from "firebase/firestore"; // Untuk menyimpan timestamp
-import ReactQuill from "react-quill"; // WYSIWYG Editor
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css"; // Import style untuk ReactQuill
 
 const categories = ["Technology", "Health", "Education", "Lifestyle"]; // Contoh kategori
