@@ -31,6 +31,12 @@ const Menuitems = [
     icon: IconUserPlus,
     href: "/peoples",
   },
+  {
+    id: uniqueId(),
+    title: "Manage Blogs",
+    icon: IconTypography,
+    href: "/blogs",
+  },
   // {
   //   id: uniqueId(),
   //   title: "Shadow",
