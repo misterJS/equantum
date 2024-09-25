@@ -162,7 +162,7 @@ const AddBlog: React.FC = () => {
 
           setNewBlog({
             ...newBlog,
-            title: sanitizedTitle,
+            title: updatedTitle,
             link: sanitizedLink.toLowerCase(),
           });
         }}
