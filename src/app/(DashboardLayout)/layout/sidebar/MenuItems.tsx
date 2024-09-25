@@ -44,12 +44,12 @@ const Menuitems = [
     icon: IconFile,
     href: "/inquiries",
   },
-  // {
-  //   id: uniqueId(),
-  //   title: "Shadow",
-  //   icon: IconCopy,
-  //   href: "/utilities/shadow",
-  // },
+  {
+    id: uniqueId(),
+    title: "Manage Comments",
+    icon: IconCopy,
+    href: "/comments",
+  },
   // {
   //   navlabel: true,
   //   subheader: "Auth",
