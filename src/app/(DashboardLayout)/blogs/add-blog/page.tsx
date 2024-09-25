@@ -10,7 +10,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 import { collection, addDoc } from "firebase/firestore";
 import { db, storage } from "../../../../../firebase"; // Import Firebase Storage
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Firebase Storage untuk upload gambar
@@ -23,6 +23,7 @@ const categories = ["Technology", "Health", "Education", "Lifestyle"]; // Contoh
 const AddBlog: React.FC = () => {
   const [newBlog, setNewBlog] = useState<{
     title: string;
+    link: string;
     content: string;
     createdBy: string;
     quotes: string;
@@ -31,6 +32,7 @@ const AddBlog: React.FC = () => {
     imageUrl: string;
   }>({
     title: "",
+    link: "",
     content: "",
     createdBy: "",
     quotes: "",
@@ -75,6 +77,7 @@ const AddBlog: React.FC = () => {
 
       setNewBlog({
         title: "",
+        link: "",
         content: "",
         createdBy: user.email,
         quotes: "",
@@ -95,7 +98,7 @@ const AddBlog: React.FC = () => {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
-      setImage(file); 
+      setImage(file);
     }
   };
 
@@ -110,7 +113,16 @@ const AddBlog: React.FC = () => {
         label="Title"
         variant="outlined"
         value={newBlog.title}
-        onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}
+        onChange={(e) => {
+          const updatedTitle = e.target.value;
+          const sanitizedLink = updatedTitle.replace(/\s+/g, "-");
+
+          setNewBlog({
+            ...newBlog,
+            title: updatedTitle,
+            link: sanitizedLink.toLowerCase(),
+          });
+        }}
         sx={{ mb: 2 }}
       />
 
@@ -189,7 +201,7 @@ const AddBlog: React.FC = () => {
           <input
             type="file"
             hidden
-            onChange={handleImageUpload} 
+            onChange={handleImageUpload}
             accept="image/*"
           />
         </Button>
