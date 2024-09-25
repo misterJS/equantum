@@ -13,12 +13,12 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { collection, addDoc } from "firebase/firestore";
 import { db, storage } from "../../../../../firebase"; // Import Firebase Storage
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Firebase Storage untuk upload gambar
-import { Timestamp } from "firebase/firestore"; // Untuk menyimpan timestamp
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Firebase Storage for image upload
+import { Timestamp } from "firebase/firestore"; // For storing timestamp
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-import "react-quill/dist/quill.snow.css"; // Import style untuk ReactQuill
+import "react-quill/dist/quill.snow.css"; // Import style for ReactQuill
 
-const categories = ["Technology", "Health", "Education", "Lifestyle"]; // Contoh kategori
+const categories = ["Technology", "Health", "Education", "Lifestyle"]; // Example categories
 
 const AddBlog: React.FC = () => {
   const [newBlog, setNewBlog] = useState<{
@@ -41,9 +41,9 @@ const AddBlog: React.FC = () => {
     imageUrl: "",
   });
 
-  const [user, setUser] = useState<any>(null); // State untuk menyimpan user login
-  const [image, setImage] = useState<File | null>(null); // State untuk menyimpan image file
-  const [isUploading, setIsUploading] = useState(false); // State untuk melacak status upload
+  const [user, setUser] = useState<any>(null); // State to store logged in user
+  const [image, setImage] = useState<File | null>(null); // State to store image file
+  const [isUploading, setIsUploading] = useState(false); // State for tracking upload status
 
   const router = useRouter();
   useEffect(() => {
@@ -57,21 +57,21 @@ const AddBlog: React.FC = () => {
     }
   }, []);
 
-  // Fungsi untuk menambah blog baru
+  // Function to add a new blog
   const handleAddBlog = async () => {
     try {
       setIsUploading(true);
       let imageUrl = "";
       if (image) {
         const imageRef = ref(storage, `images/${image.name}`);
-        await uploadBytes(imageRef, image); // Unggah gambar ke Firebase Storage
-        imageUrl = await getDownloadURL(imageRef); // Dapatkan URL unduhan gambar
+        await uploadBytes(imageRef, image); // Upload image to Firebase Storage
+        imageUrl = await getDownloadURL(imageRef); // Get download URL for image
       }
 
-      // Menambahkan blog ke Firestore
+      // Add blog to Firestore
       await addDoc(collection(db, "blogs"), {
         ...newBlog,
-        imageUrl, // Simpan URL gambar ke Firestore
+        imageUrl, // Save image URL to Firestore
         createdAt: Timestamp.now(),
       });
 
@@ -85,7 +85,7 @@ const AddBlog: React.FC = () => {
         category: "",
         imageUrl: "",
       });
-      setImage(null); // Reset state gambar
+      setImage(null); // Reset image state
       setIsUploading(false);
       router.push("/");
     } catch (error) {
@@ -94,13 +94,49 @@ const AddBlog: React.FC = () => {
     }
   };
 
-  // Fungsi untuk menangani upload gambar
+  // Function to handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
       setImage(file);
     }
   };
+
+  // ReactQuill modules configuration for custom toolbar
+  const quillModules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { font: [] }], // Custom Headers and Fonts
+      [{ list: "ordered" }, { list: "bullet" }], // Lists
+      ["bold", "italic", "underline", "strike"], // Styling
+      [{ align: [] }], // Alignment
+      [{ script: "sub" }, { script: "super" }], // Subscript and Superscript
+      ["blockquote", "code-block"], // Blockquotes and Code blocks
+      [{ color: [] }, { background: [] }], // Text color and Background color
+      ["link", "image", "video"], // Links, Images, and Videos
+      ["clean"], // Remove formatting
+    ],
+  };
+
+  // Supported formats in ReactQuill editor
+  const quillFormats = [
+    "header",
+    "font",
+    "list",
+    "bullet",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "align",
+    "script",
+    "blockquote",
+    "code-block",
+    "color",
+    "background",
+    "link",
+    "image",
+    "video",
+  ];
 
   return (
     <Box sx={{ p: 4 }}>
@@ -135,7 +171,7 @@ const AddBlog: React.FC = () => {
         sx={{ mb: 2 }}
       />
 
-      {/* WYSIWYG Editor untuk konten */}
+      {/* WYSIWYG Editor for content */}
       <Typography variant="h6" sx={{ mb: 2 }}>
         Content
       </Typography>
@@ -144,6 +180,8 @@ const AddBlog: React.FC = () => {
         value={newBlog.content}
         onChange={(content) => setNewBlog({ ...newBlog, content })}
         style={{ height: "200px", marginBottom: "50px" }}
+        modules={quillModules} // Set custom toolbar options
+        formats={quillFormats} // Set allowed formats
       />
 
       {/* Multiple Tags input */}
@@ -177,7 +215,7 @@ const AddBlog: React.FC = () => {
         )}
       />
 
-      {/* Pilihan kategori */}
+      {/* Category selection */}
       <TextField
         fullWidth
         select
@@ -194,7 +232,7 @@ const AddBlog: React.FC = () => {
         ))}
       </TextField>
 
-      {/* Upload gambar */}
+      {/* Image upload */}
       <Box sx={{ mb: 4 }}>
         <Button variant="contained" component="label" disabled={isUploading}>
           {isUploading ? "Uploading..." : "Upload Image"}
