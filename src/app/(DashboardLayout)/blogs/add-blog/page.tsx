@@ -18,7 +18,7 @@ import { Timestamp } from "firebase/firestore"; // For storing timestamp
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css"; // Import style for ReactQuill
 
-const categories = ["Technology", "Health", "Education", "Lifestyle"]; // Example categories
+const categories = ["Technology", "Health", "Education", "Lifestyle"];
 
 const AddBlog: React.FC = () => {
   const [newBlog, setNewBlog] = useState<{
@@ -151,11 +151,18 @@ const AddBlog: React.FC = () => {
         value={newBlog.title}
         onChange={(e) => {
           const updatedTitle = e.target.value;
-          const sanitizedLink = updatedTitle.replace(/\s+/g, "-");
+
+          const sanitizedTitle = updatedTitle
+            .replace(/[^\w\s]/gi, "")
+            .split(" ")
+            .slice(0, 3)
+            .join(" ");
+
+          const sanitizedLink = sanitizedTitle.replace(/\s+/g, "-");
 
           setNewBlog({
             ...newBlog,
-            title: updatedTitle,
+            title: sanitizedTitle,
             link: sanitizedLink.toLowerCase(),
           });
         }}
