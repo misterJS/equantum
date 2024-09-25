@@ -123,7 +123,7 @@ const CommentList: React.FC = () => {
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={400}>
-                      <Link href={`https://www.dwipancabolting.id/blog/${comment.name}`} >{comment.name}</Link>
+                      <Link href={`https://www.dwipancabolting.id/blog/${comment.linkArtikel}`} >{comment.name}</Link>
                     </Typography>
                   </TableCell>
                   <TableCell>
