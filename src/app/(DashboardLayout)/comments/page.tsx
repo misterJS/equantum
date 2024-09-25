@@ -88,6 +88,11 @@ const CommentList: React.FC = () => {
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
+                    Link Article
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="subtitle2" fontWeight={600}>
                     Name
                   </Typography>
                 </TableCell>
@@ -114,6 +119,11 @@ const CommentList: React.FC = () => {
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={400}>
                       {formatDate(comment.createdAt)}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2" fontWeight={400}>
+                      <Link href={`https://www.dwipancabolting.id/blog/${comment.name}`} >{comment.name}</Link>
                     </Typography>
                   </TableCell>
                   <TableCell>
