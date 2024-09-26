@@ -99,8 +99,8 @@ const InquiryList: React.FC = () => {
       (index + 1).toString(),
       item.quantity,
       item.description,
-      `Rp${item.pricePerUnit}`,
-      `Rp${item.totalPrice}`,
+      `Rp${parseInt(item.pricePerUnit).toLocaleString()}`,
+      `Rp${parseInt(item.totalPrice).toLocaleString()}`,
     ]);
 
     const totalPrice = inquiry.items.reduce(
