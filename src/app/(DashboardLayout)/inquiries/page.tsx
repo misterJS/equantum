@@ -85,7 +85,7 @@ const InquiryList: React.FC = () => {
     doc.text(`Perihal: ${inquiry.jenisQuotation}`, 15, 60);
 
     doc.text(`Yth: ${inquiry.company}`, 15, 70);
-    doc.text(`Attn: Bapak ${inquiry.name}`, 15, 75);
+    doc.text(`Attn: ${inquiry.name}`, 15, 75);
 
     doc.text("Dengan hormat,", 15, 90);
     doc.text(
